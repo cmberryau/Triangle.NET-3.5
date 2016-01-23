@@ -72,10 +72,10 @@ namespace MeshExplorer
 
         private void InitializeRenderControl(Control control)
         {
-            this.splitContainer1.SuspendLayout();
-            this.splitContainer1.Panel2.Controls.Add(control);
+            this.splitContainer.SuspendLayout();
+            this.splitContainer.Panel2.Controls.Add(control);
 
-            var size = this.splitContainer1.Panel2.ClientRectangle;
+            var size = this.splitContainer.Panel2.ClientRectangle;
 
             // Initialize control
             control.BackColor = Color.Black;
@@ -87,7 +87,21 @@ namespace MeshExplorer
             control.TabIndex = 0;
             control.Text = "renderControl1";
 
-            this.splitContainer1.ResumeLayout();
+            this.splitContainer.ResumeLayout();
+        }
+
+        protected override void OnMouseWheel(MouseEventArgs e)
+        {
+            if (splitContainer.Panel2.Bounds.Contains(e.Location))
+            {
+                var control = renderManager.Control as Control;
+
+                // Set focus on the render control.
+                if (control != null && !control.Focused)
+                {
+                    control.Focus();
+                }
+            }
         }
 
         private void Form1_KeyUp(object sender, KeyEventArgs e)
@@ -175,11 +189,6 @@ namespace MeshExplorer
         }
 
         #endregion
-
-        protected override void OnMouseWheel(MouseEventArgs e)
-        {
-            // TODO: focus render control
-        }
 
         #region Resize event handler
 
@@ -536,7 +545,7 @@ namespace MeshExplorer
 
             try
             {
-                mesh.Refine(quality);
+                mesh.Refine(quality, meshControlView.ParamConformDelChecked);
 
                 statisticView.UpdateStatistic(mesh);
 
@@ -592,11 +601,11 @@ namespace MeshExplorer
             UpdateLog();
         }
 
-        private void CreateVoronoi()
+        private bool CreateVoronoi()
         {
             if (mesh == null)
             {
-                return;
+                return false;
             }
 
             if (mesh.IsPolygon)
@@ -616,7 +625,7 @@ namespace MeshExplorer
                         DarkMessageBox.Show("Exception - Bounded Voronoi", ex.Message, MessageBoxButtons.OK);
                     }
 
-                    this.voronoi = null;
+                    return false;
                 }
             }
             else
@@ -624,12 +633,11 @@ namespace MeshExplorer
                 this.voronoi = new StandardVoronoi(mesh);
             }
 
-            if (this.voronoi != null)
-            {
-                // HACK: List<Vertex> -> ICollection<Point> ? Nope, no way.
-                //           Vertex[] -> ICollection<Point> ? Well, ok.
-                renderManager.Set(voronoi.Vertices.ToArray(), voronoi.Edges, false);
-            }
+            // HACK: List<Vertex> -> ICollection<Point> ? Nope, no way.
+            //           Vertex[] -> ICollection<Point> ? Well, ok.
+            renderManager.Set(voronoi.Vertices.ToArray(), voronoi.Edges, false);
+
+            return true;
         }
 
         private void ShowLog()
@@ -722,8 +730,7 @@ namespace MeshExplorer
         {
             if (this.voronoi == null)
             {
-                CreateVoronoi();
-                menuViewVoronoi.Checked = true;
+                menuViewVoronoi.Checked = CreateVoronoi();
             }
             else
             {

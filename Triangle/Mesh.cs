@@ -268,7 +268,7 @@ namespace TriangleNet
             this.locator = new TriangleLocator(this, predicates);
         }
 
-        public void Refine(QualityOptions quality)
+        public void Refine(QualityOptions quality, bool delaunay = false)
         {
             invertices = vertices.Count;
 
@@ -279,8 +279,13 @@ namespace TriangleNet
 
             Reset();
 
+            if (qualityMesher == null)
+            {
+                qualityMesher = new QualityMesher(this, new Configuration());
+            }
+
             // Enforce angle and area constraints.
-            qualityMesher.Apply(quality);
+            qualityMesher.Apply(quality, delaunay);
         }
 
         /// <summary>

@@ -16,11 +16,6 @@ namespace TriangleNet.Meshing
         ICollection<Vertex> Vertices { get; }
 
         /// <summary>
-        /// Gets the dictionary of vertices of the mesh
-        /// </summary>
-        IDictionary<int, Vertex> VerticesDict { get; }
-
-        /// <summary>
         /// Gets the edges of the mesh.
         /// </summary>
         IEnumerable<Edge> Edges { get; }
@@ -53,6 +48,10 @@ namespace TriangleNet.Meshing
         /// <summary>
         /// Refine the mesh.
         /// </summary>
-        void Refine(QualityOptions quality);
+        /// <param name="quality">The quality constraints.</param>
+        /// <param name="conforming">
+        /// A value indicating, if the refined mesh should be Conforming Delaunay.
+        /// </param>
+        void Refine(QualityOptions quality, bool delaunay);
     }
 }

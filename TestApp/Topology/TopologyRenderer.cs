@@ -6,7 +6,7 @@ namespace MeshExplorer.Topology
     using TriangleNet;
     using TriangleNet.Geometry;
     using TriangleNet.Rendering;
-
+    
     public class TopologyRenderer
     {
         Projection zoom;
