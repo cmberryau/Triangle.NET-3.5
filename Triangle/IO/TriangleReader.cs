@@ -99,35 +99,35 @@ namespace TriangleNet.IO
         /// <summary>
         /// Reads geometry information from .node or .poly files.
         /// </summary>
-        public void Read(string filename, out Polygon geometry)
+        public void Read(string filename, out Polygon polygon)
         {
-            geometry = null;
+            polygon = null;
 
             string path = Path.ChangeExtension(filename, ".poly");
 
             if (File.Exists(path))
             {
-                geometry = ReadPolyFile(path);
+                polygon = ReadPolyFile(path);
             }
             else
             {
                 path = Path.ChangeExtension(filename, ".node");
-                geometry = ReadNodeFile(path);
+                polygon = ReadNodeFile(path);
             }
         }
 
         /// <summary>
         /// Reads a mesh from .node, .poly or .ele files.
         /// </summary>
-        public void Read(string filename, out Polygon geometry, out List<ITriangle> triangles)
+        public void Read(string filename, out Polygon polygon, out List<ITriangle> triangles)
         {
             triangles = null;
 
-            Read(filename, out geometry);
+            Read(filename, out polygon);
 
             string path = Path.ChangeExtension(filename, ".ele");
 
-            if (File.Exists(path) && geometry != null)
+            if (File.Exists(path) && polygon != null)
             {
                 triangles = ReadEleFile(path);
             }
