@@ -69,6 +69,7 @@ namespace TriangleNet
             // Based on using -U switch, call the corresponding function
             if (behavior.MaxAngle == 0.0)
             {
+                // Disable the "no max angle" code. It may return weired vertex locations.
                 return FindNewLocationWithoutMaxAngle(org, dest, apex, ref xi, ref eta, true, badotri);
             }
 
@@ -3980,6 +3981,7 @@ namespace TriangleNet
                 angle = angle * angle / (apexlen * orglen);
 
             }
+
             // try to find the maximum edge and accordingly the pqr orientation
             if ((apexlen > orglen) && (apexlen > destlen))
             {
@@ -4002,8 +4004,8 @@ namespace TriangleNet
             {
                 return true;// it is a bad triangle
             }
-            return false;// it is a good triangle
 
+            return false;// it is a good triangle
         }
 
         /// <summary>

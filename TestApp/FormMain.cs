@@ -701,22 +701,11 @@ namespace MeshExplorer
                 {
                     int format = export.ImageFormat;
                     int size = export.ImageSize;
+                    bool compress = export.UseCompression;
 
-                    if (format == 1)
-                    {
-                        EpsImage eps = new EpsImage();
-                        eps.Export(this.mesh, export.ImageName, size);
-                    }
-                    else if (format == 2)
-                    {
-                        SvgImage svg = new SvgImage();
-                        svg.Export(this.mesh, export.ImageName, size);
-                    }
-                    else
-                    {
-                        RasterImage img = new RasterImage();
-                        img.Export(this.mesh, export.ImageName, size);
-                    }
+                    var writer = new ImageWriter();
+
+                    writer.Export(this.mesh, export.ImageName, format, size, compress);
                 }
             }
         }

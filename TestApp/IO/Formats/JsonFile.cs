@@ -16,7 +16,6 @@ namespace MeshExplorer.IO.Formats
     using TriangleNet.Geometry;
     using TriangleNet.IO;
     using TriangleNet.Meshing;
-    using TriangleNet.Tools;
 
     /// <summary>
     /// Read and write JSON files.
@@ -433,7 +432,7 @@ namespace MeshExplorer.IO.Formats
 
             if (mesh.CurrentNumbering == NodeNumbering.Linear)
             {
-                markers = WritePoints(mesh.Vertices.ToPoints(), writer, nv, useMarkers);
+                markers = WritePoints(mesh.Vertices, writer, nv, useMarkers);
             }
             else
             {

@@ -92,12 +92,12 @@
     <Compile Include="Tools\CuthillMcKee.cs" />
     <Compile Include="Tools\Interpolation.cs" />
     <Compile Include="Tools\IntersectionHelper.cs" />
-    <Compile Include="Tools\PointSorter.cs" />
     <Compile Include="Tools\PolygonValidator.cs" />
     <Compile Include="Tools\QualityMeasure.cs" />
     <Compile Include="Tools\TriangleQuadTree.cs" />
     <Compile Include="Tools\Statistic.cs" />
     <Compile Include="Tools\Utilities.cs" />
+    <Compile Include="Tools\VertexSorter.cs" />
     <Compile Include="Topology\Osub.cs" />
     <Compile Include="Topology\Otri.cs" />
     <Compile Include="Topology\SubSegment.cs" />
@@ -109,6 +109,7 @@
     <Compile Include="Smoothing\ISmoother.cs" />
     <Compile Include="Smoothing\SimpleSmoother.cs" />
     <Compile Include="TrianglePool.cs" />
+    <Compile Include="TriangleSampler.cs" />
     <Compile Include="Voronoi\BoundedVoronoi.cs" />
     <Compile Include="Voronoi\DefaultVoronoiFactory.cs" />
     <Compile Include="Voronoi\IVoronoiFactory.cs" />
@@ -128,7 +129,6 @@
     <Compile Include="MeshValidator.cs" />
     <Compile Include="NewLocation.cs" />
     <Compile Include="RobustPredicates.cs" />
-    <Compile Include="Sampler.cs" />
     <Compile Include="TriangleLocator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

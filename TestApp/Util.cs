@@ -10,7 +10,6 @@ namespace MeshExplorer
     using System.Drawing;
     using System.Globalization;
     using System.IO;
-    using TriangleNet.Tools;
 
     /// <summary>
     /// Utility class.
@@ -32,7 +31,7 @@ namespace MeshExplorer
 
             string line = reader.ReadLine().Trim();
 
-            while (line.IsNullOrWhiteSpace() || line.StartsWith("#"))
+            while (String.IsNullOrWhiteSpace(line) || line.StartsWith("#"))
             {
                 if (reader.EndOfStream)
                 {
